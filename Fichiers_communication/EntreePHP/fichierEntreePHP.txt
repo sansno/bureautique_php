@@ -1,0 +1,5 @@
+{
+  "identifiant": "cuve-contenu",
+  "valeur": 0.6,
+  "timestamp": "2024-06-25T10:32:00"
+}

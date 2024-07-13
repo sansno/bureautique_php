@@ -1,0 +1,52 @@
+body {
+    padding:0;
+    margin:0;
+    background-color:black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100vh;
+}
+
+header, footer {
+    background-color: rgb(52, 54, 56);
+    color:white;
+    width:100%;
+    text-align: center;
+}
+
+main {
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    gap: 10%;
+}
+
+#cuve-contenant {
+    width:100px;
+    height:200px;
+    background-color:grey;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+#cuve-contenu {
+    width:98%;
+    background-color: aqua;
+    height: 100%;
+    transform: scaleY(0.5);
+    transform-origin: bottom;
+    transition: transform .45s ease;
+}
+
+#graphique {
+    height:200px;
+    width:400px;
+    max-width: 400px;
+    max-height: 200px;
+}
