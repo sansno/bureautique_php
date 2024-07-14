@@ -42,8 +42,8 @@ document.addEventListener("DOMContentLoaded", function() {
         })
     }
 
-    // Appeler la fonction envoyerRequete à intervalle régulier (par exemple, toutes les 10 secondes)
-    setInterval(envoyerRequete, 10000); 
+    // Appeler la fonction envoyerRequete à intervalle régulier (par exemple, toutes les secondes)
+    setInterval(envoyerRequete, 1000); 
 });
 
 
