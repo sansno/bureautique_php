@@ -1,5 +1,10 @@
 {
   "identifiant": "cuve-contenu",
-  "valeur": 0.6,
+  "valeur": 0.9,
   "timestamp": "2024-06-25T10:32:00"
+}
+{
+  "identifiant": "cuve-courbe",
+  "valeurX": [0.0, 0.1, 0.2, 0.3, 0.4],
+  "valeurY": [10, 20, 70, 30, 10]
 }

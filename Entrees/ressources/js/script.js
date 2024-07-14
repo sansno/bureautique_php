@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (Array.isArray(donnee_tab)) {
                 //Parcours des données
                 donnee_tab.forEach(function(element) {
-                    //
+                    //Permet de diriger vers le bon traitement en fonction element.identifiant
                     aiguilleur(element);
                 });
             } else {
@@ -53,39 +53,90 @@ document.addEventListener("DOMContentLoaded", function() {
 /**************/
 
 function aiguilleur(element){
-
+    switch(element.identifiant) {
+        case "cuve-contenu":
+            gestionGraphiqueCuve(element);
+            break;
+        case "cuve-courbe":
+            gestionCourbeGraphiqueCuve(element);
+            break;
+      }
+ 
 }
+
+/********************/
+/* Données globales */
+/********************/
+var courbeCuveChart;
 
 /*********************************************/
 /* Gestion des différents éléments graphique */
 /*********************************************/
 
-function gestionGraphiqueCurve(element){
+function gestionGraphiqueCuve(element){
     var elementHTML = document.getElementById(element.identifiant);
     if (elementHTML && element.valeur !== undefined) {
         elementHTML.style.transform = 'scaleY(' + element.valeur + ')';
     }
 }
 
-//Création du graphe
-var ctx = document.getElementById('graphique').getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'line', // ou 'bar', 'pie', 'doughnut', etc.
-    data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-        datasets: [{
-            label: 'Dataset 1',
-            data: [65, 59, 80, 81, 56, 55, 40],
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
+
+function gestionCourbeGraphiqueCuve(element){
+
+    //Constitution des données (x,y)
+    //-Création du tableau de données
+    var donneesXY = [];
+
+    //-Combinaison des valeurs de x et y pour former donnees
+    for (var i = 0; i < element.valeurX.length; i++) {
+        donneesXY.push({ x: element.valeurX[i], y: element.valeurY[i] });
     }
-});
+
+
+    //Si le graphique existe déjà => on le met à jour
+    if (courbeCuveChart) {
+        // Mettre à jour les données du premier dataset
+        courbeCuveChart.data.datasets[0].data = donneesXY;
+        // Mettre à jour le graphique
+        courbeCuveChart.update();
+    }
+    //Sinon => on le crée
+    else {
+        //Création du graphe
+        var ctx = document.getElementById('graphique').getContext('2d');
+        courbeCuveChart = new Chart(ctx, {
+            type: 'line', // ou 'bar', 'pie', 'doughnut', etc.
+            data: {
+                datasets: [{
+                    label: 'Niveau de la cuve (%)',
+                    data: donneesXY,
+                    backgroundColor: 'rgba(75, 192, 192, 1)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                animation: false,
+                scales: {
+                    x: {
+                        type: 'linear',
+                    },
+                    y: {
+                        beginAtZero: true,
+                        min: 0,
+                        max: 100,
+                        ticks: {
+                            stepSize: 10 // échelle de 10 en 10
+                        },
+                        grid: {
+                            display: true,
+                            drawBorder: false, // ne pas dessiner la bordure de l'axe
+                            color: 'rgba(255, 255, 255, 0.1)', // couleur des lignes de grille
+                            lineWidth: 1 // largeur des lignes de grille
+                        }
+                    }
+                }//Fin scales
+            }//Fin options
+        });//Fin new Chart
+    }
+}

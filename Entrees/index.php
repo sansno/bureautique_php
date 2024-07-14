@@ -6,38 +6,6 @@ $routes = [
 ];
 
 
-/********************************* */
-/*
-//Lecture du fichier d'entrée PHP
-$cheminFichierEntreePHP = '../Fichiers_communication/EntreePHP/fichierEntreePHP.PasToutAFaitjson';
-$fichierEntreePHP = file_get_contents($cheminFichierEntreePHP);
-
-echo "<div>$fichierEntreePHP</div></br>";
-
-//Segmentation de la chaîne par bloque {}
-preg_match_all('/\{[^{}]*\}/', $fichierEntreePHP, $correspondances);
-
-$segment_tab = $correspondances[0];
-
-$donneesJSON = "[";
-foreach ($segment_tab as $segment) {
-    //Concaténation des segments complets
-    $donneesJSON .= $segment .",";   
-}
-
-//Suppression de la dernière virgule
-$donneesJSON = mb_substr($donneesJSON, 0, -1);
-
-//Fermeture du tableau
-$donneesJSON .= "]";
-
-echo "<div>$donneesJSON</div></br>";
-die;
-*/
-
-/********************************* */
-
-
 // Récupération de l'URL demandée
 $request_uri = $_SERVER['REQUEST_URI'];
 
